@@ -1,0 +1,23 @@
+{
+  "name": "dispaccio",
+  "version": "1.0.0",
+  "description": "A plain old event dispatcher",
+  "main": "index.js",
+  "author": "Antonio G. Greco",
+  "license": "MIT",
+  "scripts": {
+    "build": "scripts/build",
+    "test": "scripts/test",
+    "prepare": "npm test && npm run build"
+  },
+  "dependencies": {
+    "monadical": "4.5.3"
+  },
+  "devDependencies": {
+    "@types/jest": "30.0.0",
+    "jest": "30.0.5",
+    "prettier": "2.5.1",
+    "ts-jest": "29.4.1",
+    "typescript": "5.5.3"
+  }
+}

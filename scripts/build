@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Apparently set -e is considered bad practice.
+# A better approach, is to use something like:
+#   trap 'do_something' ERR
+# where do_something function will run when an error occurs
+# TODO AG: Consider using trap as an alternative
+# source: http://stackoverflow.com/questions/19622198/what-does-set-e-mean-in-a-bash-script
+set -e
+
+npx tsc
+npx uglifyjs index.js -c -m -o index.js
