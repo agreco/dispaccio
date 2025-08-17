@@ -22,7 +22,7 @@ jobs:
           node-version: 22.13.1
           cache: 'yarn'
       # Installs Corepack if missing
-      - run: npm i -g corepack
-      - run: corepack prepare yarn@4.6.0 --activate
+      - run: corepack enable
+      - run: yarn set version berry
       - run: yarn install
       - run: npm test
