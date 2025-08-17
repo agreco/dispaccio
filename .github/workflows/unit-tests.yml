@@ -20,9 +20,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 22.13.1
-          cache: 'yarn'
-      # Installs Corepack if missing
       - run: corepack enable
-      - run: yarn set version berry
+      - run: yarn set version 4.6.0
       - run: yarn install
       - run: npm test
