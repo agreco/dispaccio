@@ -3,12 +3,12 @@
     "target": "es2016",
     "module": "commonjs",
     "esModuleInterop": true,
+    "declaration": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
     "outDir": "./"
   },
-  "files": ["index.ts"],
   "exclude": ["node_modules", "index.test.ts"],
   "include": ["index.ts"]
 }

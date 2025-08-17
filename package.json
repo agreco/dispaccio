@@ -10,6 +10,10 @@
     "test": "scripts/test",
     "prepare": "npm test && npm run build"
   },
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
   "dependencies": {
     "monadical": "4.5.3"
   },
