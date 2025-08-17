@@ -1,7 +1,7 @@
 {
   "name": "dispaccio",
   "version": "1.0.0",
-  "description": "A plain old event dispatcher",
+  "description": "Probably the only event dispatcher you'll ever need.",
   "main": "index.js",
   "author": "Antonio G. Greco",
   "license": "MIT",
