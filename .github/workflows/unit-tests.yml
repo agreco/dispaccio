@@ -16,11 +16,11 @@ jobs:
   unit-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v5
+      - name: Enable Corepack before setting up Node
+        run: corepack enable
+      - uses: actions/setup-node@v4
         with:
           node-version: 22.13.1
-      - run: corepack enable
-      - run: yarn set version 4.6.0
       - run: yarn install
       - run: npm test
