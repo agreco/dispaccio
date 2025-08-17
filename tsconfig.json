@@ -8,5 +8,7 @@
     "skipLibCheck": true,
     "outDir": "./"
   },
+  "files": ["index.ts"],
+  "exclude": ["node_modules", "index.test.ts"],
   "include": ["index.ts"]
 }
