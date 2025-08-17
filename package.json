@@ -8,7 +8,7 @@
   "scripts": {
     "build": "scripts/build",
     "test": "scripts/test",
-    "prepare": "npm test && npm run build"
+    "prepare": "npm run build"
   },
   "files": [
     "index.js",
