@@ -5,6 +5,16 @@
   "main": "index.js",
   "author": "Antonio G. Greco",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://git@github.com/agreco/dispaccio.git"
+  },
+  "bugs": "https://github.com/agreco/dispaccio/issues",
+  "keywords": [
+    "dispatcher",
+    "event",
+    "events"
+  ],
   "scripts": {
     "build": "scripts/build",
     "test": "scripts/test",
