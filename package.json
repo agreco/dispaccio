@@ -1,6 +1,6 @@
 {
   "name": "dispaccio",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Probably the only event dispatcher you'll ever need.",
   "main": "index.js",
   "author": "Antonio G. Greco",
