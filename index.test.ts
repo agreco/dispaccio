@@ -6,6 +6,12 @@ describe('Dispaccio', () => {
   beforeEach(() => {
     dispaccio = new Dispaccio();
   });
+  
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
+  })
 
   describe('subscribe', () => {
     test('adds callback without scope', () => {
@@ -241,6 +247,68 @@ describe('Dispaccio', () => {
       dispaccio.unsubscribe(eventName, callback, undefined);
       expect(dispaccio.events[eventName]).toHaveLength(0);
     });
+    
+    test('does not call callback after unsubscribing', () => {
+      const callback1 = jest.fn();
+      const callback2 = jest.fn();
+      const eventName = 'test-event';
+      
+      dispaccio.subscribe(eventName, callback1);
+      dispaccio.subscribe(eventName, callback2);
+      
+      dispaccio.publish(eventName);
+      
+      expect(callback1).toHaveBeenCalledTimes(1);
+      expect(callback2).toHaveBeenCalledTimes(1);
+      
+      callback1.mockClear();
+      callback2.mockClear();
+      
+      dispaccio.unsubscribe(eventName, callback1);
+      
+      dispaccio.publish(eventName);
+      
+      expect(callback1).not.toHaveBeenCalled();
+      expect(callback2).toHaveBeenCalled();
+    });
+    
+    test('does not call callback with a scope after unsubscribing', () => {
+      const scope1 = { name: 'scope1' };
+      const scope2 = { name: 'scope2' };
+      const eventName = 'test-event';
+      
+      const callback1 = jest.fn(function (this: any) {
+        expect(this).toBe(scope1);
+      });
+      
+      const callback2 = jest.fn(function (this: any) {
+        expect(this).toBe(scope2);
+      });
+      
+      const callback3 = jest.fn();
+      
+      dispaccio.subscribe(eventName, callback1, scope1);
+      dispaccio.subscribe(eventName, callback2, scope2);
+      dispaccio.subscribe(eventName, callback3);
+      
+      dispaccio.publish(eventName);
+      
+      expect(callback1).toHaveBeenCalledTimes(1);
+      expect(callback2).toHaveBeenCalledTimes(1);
+      expect(callback3).toHaveBeenCalledTimes(1);
+      
+      callback1.mockClear();
+      callback2.mockClear();
+      callback3.mockClear();
+      
+      dispaccio.unsubscribe(eventName, callback1, scope1);
+      
+      dispaccio.publish(eventName);
+      
+      expect(callback1).not.toHaveBeenCalled();
+      expect(callback2).toHaveBeenCalled();
+      expect(callback3).toHaveBeenCalled();
+    })
   });
 
   describe('publish', () => {
