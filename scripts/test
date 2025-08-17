@@ -11,7 +11,7 @@ set -e
 export NODE_ENV=test
 
 if [ $# -eq 0 ]; then
-  npx jest --watchAll=false --testPathPattern=.*.test.*$
+  npx jest --watchAll=false --testPathPatterns=.*.test.*$
 else
   npx jest $@
 fi
