@@ -26,13 +26,13 @@ class Dispaccio {
       this.events[event] = [];
     }
 
-    this.events[event].push({ callback, scope: scope });
+    this.events[event] = [...this.events[event], { callback, scope: scope }];
   }
 
   unsubscribe(event: string, callback: FuncSpreadable, scope: EventScope = null) {
     const arr = this.events[event];
     if (nonEmptyArray(arr)) {
-      this.events[event] = arr.filter(({ callback: cb, scope: sp }) => cb !== callback || scope !== sp);
+      this.events[event] = [...arr.filter(({ callback: cb, scope: sp }) => cb !== callback || scope !== sp)];
     }
   }
 
