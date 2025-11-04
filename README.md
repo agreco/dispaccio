@@ -40,24 +40,24 @@ To listen to an event, use the `subscribe` method. When an event is dispatched, 
 To dispatch an event, use the `publish` method.
 
 ```typescript
-dispaccio.subscribe('event-name', ({ data }) => {
+await dispaccio.subscribe('event-name', ({ data }) => {
   /* do something with data */
 });
 
-dispaccio.subscribe('event-name', ({ data }) => {
+await dispaccio.subscribe('event-name', ({ data }) => {
   /* do something else with data */
 });
 
-dispaccio.publish('event-name', { data: 'some data' });
+await dispaccio.publish('event-name', { data: 'some data' });
 ```
 Arguments passed to the `publish` method will be passed to the callback.
 
 ```typescript
-dispaccio.subscribe('event-name', ({ data }, str, num) => {
+await dispaccio.subscribe('event-name', ({ data }, str, num) => {
   /* do something with data, str and num */
 });
 
-dispaccio.publish('event-name', { data: 'some data' }, 'a string', 123);
+await dispaccio.publish('event-name', { data: 'some data' }, 'a string', 123);
 ```
 
 You can also pass a scope to the `subscribe` method, which will be used as the scope to the callback when it is called.
@@ -76,10 +76,10 @@ const callback2 = function (data) {
   console.log(this.name);
 };
 
-dispaccio.subscribe('event-name', callback1, scope1);
-dispaccio.subscribe('event-name', callback2, scope2);
+await dispaccio.subscribe('event-name', callback1, scope1);
+await dispaccio.subscribe('event-name', callback2, scope2);
 
-dispaccio.publish('event-name');
+await dispaccio.publish('event-name');
 ```
 
 **_Note_**: Scopes will only be available to methods, not arrow functions. Arrow functions won't bind to `this`, 
@@ -97,13 +97,13 @@ const callback1 = () => {};
 const callback2 = function () {};
 const scope = {};
 
-dispaccio.subscribe('test-event', callback1);
-dispaccio.subscribe('test-event', callback2, scope);
-dispaccio.publish('event-name');
+await dispaccio.subscribe('test-event', callback1);
+await dispaccio.subscribe('test-event', callback2, scope);
+await dispaccio.publish('event-name');
 // callback1 and callback2 will be called
 
-dispaccio.unsubscribe('test-event', callback2, scope);
-dispaccio.publish('event-name');
+await dispaccio.unsubscribe('test-event', callback2, scope);
+await dispaccio.publish('event-name');
 // callback1 will called but not callback2
 ```
 Make sure to use the same callback when unsubscribing, otherwise the callback will not be removed. The scope will also 
@@ -117,8 +117,8 @@ const callback1 = () => {};
 const callback2 = function () {};
 const scope = {};
 
-dispaccio.subscribe('test-event', callback1);
-dispaccio.subscribe('test-event', callback2, scope);
+await dispaccio.subscribe('test-event', callback1);
+await dispaccio.subscribe('test-event', callback2, scope);
 
 console.log(dispaccio.events['test-event'].length); // 2;
 ```
