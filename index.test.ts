@@ -446,7 +446,9 @@ describe('Dispaccio', () => {
 
       expect(callback1).toHaveBeenCalledTimes(1);
       expect(errorCallback).toHaveBeenCalledTimes(1);
-      // callback2 may not be called if error is thrown
+
+      // callback2 should not be called if an error is thrown
+      expect(callback2).not.toHaveBeenCalled();
     });
 
     test('handles complex argument types correctly', async () => {
