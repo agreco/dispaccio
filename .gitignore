@@ -9,7 +9,19 @@ yarn-error.log*
 .pnp.js
 
 .idea/*
+
+# Yarn
+.cache
+.yarnrc
+.yarn/cache/
 .yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+*.tgz
 
 index.js
 index.d.ts
