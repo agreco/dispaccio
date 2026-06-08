@@ -1,3 +1,5 @@
+import { describe, expect, test, vi, beforeEach, afterEach } from 'vitest';
+
 import Dispaccio from './';
 
 let dispaccio: Dispaccio;
@@ -6,16 +8,16 @@ describe('Dispaccio', () => {
   beforeEach(() => {
     dispaccio = new Dispaccio();
   });
-  
+
   afterEach(() => {
-    jest.clearAllMocks();
-    jest.resetAllMocks();
-    jest.restoreAllMocks();
-  })
+    vi.clearAllMocks();
+    vi.resetAllMocks();
+    vi.restoreAllMocks();
+  });
 
   describe('subscribe', () => {
     test('adds callback without scope', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
 
       await dispaccio.subscribe('without-scope', callback);
 
@@ -26,7 +28,7 @@ describe('Dispaccio', () => {
     });
 
     test('adds callback with scope', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       const scope = {};
 
       await dispaccio.subscribe('with-scope', callback, scope);
@@ -38,8 +40,8 @@ describe('Dispaccio', () => {
     });
 
     test('adds multiple callbacks to same event', async () => {
-      const callback1 = jest.fn();
-      const callback2 = jest.fn();
+      const callback1 = vi.fn();
+      const callback2 = vi.fn();
       const eventName = 'multi-callback-event';
 
       await dispaccio.subscribe(eventName, callback1);
@@ -51,7 +53,7 @@ describe('Dispaccio', () => {
     });
 
     test('adds same callback multiple times to same event', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       const eventName = 'duplicate-callback-event';
 
       await dispaccio.subscribe(eventName, callback);
@@ -63,7 +65,7 @@ describe('Dispaccio', () => {
     });
 
     test('handles undefined scope correctly', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
 
       await dispaccio.subscribe('undefined-scope', callback, undefined);
 
@@ -74,7 +76,7 @@ describe('Dispaccio', () => {
     });
 
     test('creates event array when event does not exist', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       const eventName = 'new-event';
 
       expect(dispaccio.events[eventName]).toBeUndefined();
@@ -87,8 +89,8 @@ describe('Dispaccio', () => {
     });
 
     test('preserves existing callbacks when adding new ones', async () => {
-      const callback1 = jest.fn();
-      const callback2 = jest.fn();
+      const callback1 = vi.fn();
+      const callback2 = vi.fn();
       const eventName = 'preserve-callbacks';
 
       await dispaccio.subscribe(eventName, callback1);
@@ -104,7 +106,7 @@ describe('Dispaccio', () => {
 
   describe('unsubscribe', () => {
     test('removes callback from event', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
 
       await dispaccio.subscribe('test-event', callback);
       expect(dispaccio.events['test-event']).toHaveLength(1);
@@ -114,8 +116,8 @@ describe('Dispaccio', () => {
     });
 
     test('removes only the matching callback', async () => {
-      const callback1 = jest.fn();
-      const callback2 = jest.fn();
+      const callback1 = vi.fn();
+      const callback2 = vi.fn();
       const eventName = 'test-event';
 
       await dispaccio.subscribe(eventName, callback1);
@@ -128,7 +130,7 @@ describe('Dispaccio', () => {
     });
 
     test('does nothing when event does not exist', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       const eventName = 'non-existent-event';
 
       await dispaccio.unsubscribe(eventName, callback);
@@ -136,8 +138,8 @@ describe('Dispaccio', () => {
     });
 
     test('does nothing when callback is not found in event', async () => {
-      const callback1 = jest.fn();
-      const callback2 = jest.fn();
+      const callback1 = vi.fn();
+      const callback2 = vi.fn();
       const eventName = 'test-event';
 
       await dispaccio.subscribe(eventName, callback1);
@@ -149,7 +151,7 @@ describe('Dispaccio', () => {
     });
 
     test('removes callback with matching scope', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       const eventName = 'test-event';
       const scope = {};
 
@@ -161,7 +163,7 @@ describe('Dispaccio', () => {
     });
 
     test('does not remove callback with different scope', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       const eventName = 'test-event';
       const scope1 = {};
       const scope2 = {};
@@ -175,7 +177,7 @@ describe('Dispaccio', () => {
     });
 
     test('removes only callback with matching scope when multiple exist', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       const eventName = 'test-event';
       const scope1 = {};
       const scope2 = {};
@@ -190,7 +192,7 @@ describe('Dispaccio', () => {
     });
 
     test('removes callback with null scope when unsubscribing with null', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       const eventName = 'test-event';
 
       await dispaccio.subscribe(eventName, callback, null);
@@ -201,7 +203,7 @@ describe('Dispaccio', () => {
     });
 
     test('removes callback with default null scope when unsubscribing without scope', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       const eventName = 'test-event';
 
       await dispaccio.subscribe(eventName, callback);
@@ -212,7 +214,7 @@ describe('Dispaccio', () => {
     });
 
     test('does not remove callback with scope when unsubscribing without scope', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       const eventName = 'test-event';
       const scope = {};
 
@@ -225,7 +227,7 @@ describe('Dispaccio', () => {
     });
 
     test('removes multiple callbacks with same callback and scope', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       const eventName = 'test-event';
       const scope = {};
 
@@ -238,7 +240,7 @@ describe('Dispaccio', () => {
     });
 
     test('handles undefined scope correctly', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       const eventName = 'test-event';
 
       await dispaccio.subscribe(eventName, callback, undefined);
@@ -247,73 +249,73 @@ describe('Dispaccio', () => {
       await dispaccio.unsubscribe(eventName, callback, undefined);
       expect(dispaccio.events[eventName]).toHaveLength(0);
     });
-    
+
     test('does not call callback after unsubscribing', async () => {
-      const callback1 = jest.fn();
-      const callback2 = jest.fn();
+      const callback1 = vi.fn();
+      const callback2 = vi.fn();
       const eventName = 'test-event';
-      
+
       await dispaccio.subscribe(eventName, callback1);
       await dispaccio.subscribe(eventName, callback2);
-      
+
       await dispaccio.publish(eventName);
-      
+
       expect(callback1).toHaveBeenCalledTimes(1);
       expect(callback2).toHaveBeenCalledTimes(1);
-      
+
       callback1.mockClear();
       callback2.mockClear();
-      
+
       await dispaccio.unsubscribe(eventName, callback1);
-      
+
       await dispaccio.publish(eventName);
-      
+
       expect(callback1).not.toHaveBeenCalled();
       expect(callback2).toHaveBeenCalled();
     });
-    
+
     test('does not call callback with a scope after unsubscribing', async () => {
       const scope1 = { name: 'scope1' };
       const scope2 = { name: 'scope2' };
       const eventName = 'test-event';
-      
-      const callback1 = jest.fn(function (this: any) {
+
+      const callback1 = vi.fn(function (this: any) {
         expect(this).toBe(scope1);
       });
-      
-      const callback2 = jest.fn(function (this: any) {
+
+      const callback2 = vi.fn(function (this: any) {
         expect(this).toBe(scope2);
       });
-      
-      const callback3 = jest.fn();
-      
+
+      const callback3 = vi.fn();
+
       await dispaccio.subscribe(eventName, callback1, scope1);
       await dispaccio.subscribe(eventName, callback2, scope2);
       await dispaccio.subscribe(eventName, callback3);
-      
+
       await dispaccio.publish(eventName);
-      
+
       expect(callback1).toHaveBeenCalledTimes(1);
       expect(callback2).toHaveBeenCalledTimes(1);
       expect(callback3).toHaveBeenCalledTimes(1);
-      
+
       callback1.mockClear();
       callback2.mockClear();
       callback3.mockClear();
-      
+
       await dispaccio.unsubscribe(eventName, callback1, scope1);
-      
+
       await dispaccio.publish(eventName);
-      
+
       expect(callback1).not.toHaveBeenCalled();
       expect(callback2).toHaveBeenCalled();
       expect(callback3).toHaveBeenCalled();
-    })
+    });
   });
 
   describe('publish', () => {
     test('calls single callback with no arguments', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       const eventName = 'test-event';
 
       await dispaccio.subscribe(eventName, callback);
@@ -324,7 +326,7 @@ describe('Dispaccio', () => {
     });
 
     test('calls single callback with single argument', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       const eventName = 'test-event';
       const arg = 'test-argument';
 
@@ -336,7 +338,7 @@ describe('Dispaccio', () => {
     });
 
     test('calls single callback with multiple arguments', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       const eventName = 'test-event';
       const arg1 = 'first-arg';
       const arg2 = 'second-arg';
@@ -350,8 +352,8 @@ describe('Dispaccio', () => {
     });
 
     test('calls multiple callbacks with same arguments', async () => {
-      const callback1 = jest.fn();
-      const callback2 = jest.fn();
+      const callback1 = vi.fn();
+      const callback2 = vi.fn();
       const eventName = 'test-event';
       const arg = 'shared-argument';
 
@@ -366,7 +368,7 @@ describe('Dispaccio', () => {
     });
 
     test('calls callback with correct scope when scope is provided', async () => {
-      const callback = jest.fn(function (this: any) {
+      const callback = vi.fn(function (this: any) {
         expect(this).toBe(scope);
       });
       const eventName = 'test-event';
@@ -379,7 +381,7 @@ describe('Dispaccio', () => {
     });
 
     test('calls callback with null scope when no scope is provided', async () => {
-      const callback = jest.fn(function (this: any) {
+      const callback = vi.fn(function (this: any) {
         expect(this).toBeNull();
       });
       const eventName = 'test-event';
@@ -393,10 +395,10 @@ describe('Dispaccio', () => {
     test('calls callbacks with different scopes correctly', async () => {
       const scope1 = { name: 'scope1' };
       const scope2 = { name: 'scope2' };
-      const callback1 = jest.fn(function (this: any) {
+      const callback1 = vi.fn(function (this: any) {
         expect(this).toBe(scope1);
       });
-      const callback2 = jest.fn(function (this: any) {
+      const callback2 = vi.fn(function (this: any) {
         expect(this).toBe(scope2);
       });
       const eventName = 'test-event';
@@ -417,9 +419,9 @@ describe('Dispaccio', () => {
 
     test('calls callbacks in subscription order', async () => {
       const callOrder: number[] = [];
-      const callback1 = jest.fn(() => callOrder.push(1));
-      const callback2 = jest.fn(() => callOrder.push(2));
-      const callback3 = jest.fn(() => callOrder.push(3));
+      const callback1 = vi.fn(() => callOrder.push(1));
+      const callback2 = vi.fn(() => callOrder.push(2));
+      const callback3 = vi.fn(() => callOrder.push(3));
       const eventName = 'order-test';
 
       await dispaccio.subscribe(eventName, callback1);
@@ -431,11 +433,11 @@ describe('Dispaccio', () => {
     });
 
     test('continues calling other callbacks if one throws an error', async () => {
-      const callback1 = jest.fn();
-      const errorCallback = jest.fn(() => {
+      const callback1 = vi.fn();
+      const errorCallback = vi.fn(() => {
         throw new Error('Test error');
       });
-      const callback2 = jest.fn();
+      const callback2 = vi.fn();
       const eventName = 'error-test';
 
       await dispaccio.subscribe(eventName, callback1);
@@ -452,7 +454,7 @@ describe('Dispaccio', () => {
     });
 
     test('handles complex argument types correctly', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       const eventName = 'complex-args-test';
       const complexArg = {
         string: 'test',
@@ -471,7 +473,7 @@ describe('Dispaccio', () => {
     });
 
     test('works with array spread as arguments', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       const eventName = 'spread-test';
       const args = ['arg1', 'arg2', 'arg3'];
 
@@ -492,7 +494,7 @@ describe('Dispaccio', () => {
     });
 
     test('publishes to same event multiple times', async () => {
-      const callback = jest.fn();
+      const callback = vi.fn();
       const eventName = 'multiple-publish-test';
 
       await dispaccio.subscribe(eventName, callback);
@@ -519,12 +521,12 @@ describe('Dispaccio', () => {
     test('respects scope binding for this context', async () => {
       const scope = {
         value: 'test-value',
-        getValue: jest.fn(function (this: any) {
+        getValue: vi.fn(function (this: any) {
           return this.value;
         })
       };
 
-      const callback = jest.fn(function (this: any) {
+      const callback = vi.fn(function (this: any) {
         return this.getValue();
       });
 

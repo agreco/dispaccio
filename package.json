@@ -28,11 +28,9 @@
     "monadical": "4.5.3"
   },
   "devDependencies": {
-    "@types/jest": "30.0.0",
-    "jest": "30.0.5",
     "prettier": "2.5.1",
-    "ts-jest": "29.4.1",
-    "typescript": "5.5.3"
+    "typescript": "5.5.3",
+    "vitest": "4.1.8"
   },
   "packageManager": "yarn@4.4.1"
 }
